@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">פתקים</string>
+    <!--start page-->
+    <string name="greeting">!ברוך הבא לפתקים</string>
+
+    <string name="instruc">הוראות</string>
+    <string name="erite_notes">הוסף פתקים</string>
+    <string name="start_game">התחל משחק</string>
+
+    <!--add notes-->
+   <string name="explanation">הכנס את הדמויות עם פסיק בין כל שני דמויות\nכדי להוסיף הערה לדמות כתוב אותה בתוך סוגריים\nלדוגמא: פלוני (מהסרט אלמוני), צנזור, ציון ברוך (הערפד)</string>
+    <string name="save">save</string>
 </resources>
