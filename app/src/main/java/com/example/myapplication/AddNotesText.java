@@ -8,17 +8,18 @@ import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+
 import java.util.LinkedList;
 
 
 // new screen to get notes from the user
-public class addNotes extends MainActivity {
+public class AddNotesText extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_notes);
-
+        setContentView(R.layout.activity_add_notes_text);
+        // display return button in the toolbar (in the top of the screen)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setTitle("הוסף פתקים");
@@ -29,10 +30,16 @@ public class addNotes extends MainActivity {
     }
 
     // save the notes that been entered so far.
-    public void saveNotes(View view) throws InvalidInput{
+    public void saveNotes(View view){
         TextInputLayout inputView = findViewById(R.id.input);
         String text = inputView.getEditText().getText().toString();
-        notes.addAll(_getNotesFromText(text));
+        try {
+            notes.addAll(_getNotesFromText(text));
+        }catch (InvalidInput e){
+            errorMessege("לא סגרת את הסוגריים כמו שצריך.\nהסתכל/י בפורמט למעלה כדי לתקן.",
+                    () -> {}, "parenthesis error");// show error if there is'nt a closing parenthesis in the end
+            return;
+        }
         // jump back to the main screen
         Intent jump = new Intent(getApplicationContext(), MainActivity.class);
         Button save = findViewById(R.id.save);
@@ -66,7 +73,7 @@ public class addNotes extends MainActivity {
         while(i < len){
             if (text.charAt(i) == '('){
                 if (text.charAt(len-1) != ')') {
-                    throw new InvalidInput(); // throw error if there is'nt a closing parenthesis in the end
+                    throw new InvalidInput();
                 }
                 note.setComment(text.substring(i+1, len - 1)); // set the text in the parenthesis as comment
                 break;
