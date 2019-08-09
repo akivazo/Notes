@@ -38,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
         return true;
     }
-    public void addNotes(View view){
+    public void addNotesText(View view){
         Intent jump = new Intent(getApplicationContext(), AddNotesText.class);
+        startActivity(jump);
+    }
+    public void addNotes(View view){
+        Intent jump = new Intent(getApplicationContext(), AddNotes.class);
         startActivity(jump);
     }
     public void startGame(View view){
