@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 //class represent a dialog window with positive button
-// after create this class to show the window write: " dialog_name.show(getSupportFragmentManager(),"<some tag>"); "
+
 public class PosDialog extends AppCompatDialogFragment {
     private String title;
     private String message;
@@ -16,7 +16,7 @@ public class PosDialog extends AppCompatDialogFragment {
     private Runnable posfun;
 
     /**
-     *
+     * after created this class to show the window write: "dialog_name.show(getSupportFragmentManager(),"<some tag>"); "
       * @param title: the title of the dialog window
      * @param messege: the message the dialog window
      * @param posBtn: the name the will show on the positive button

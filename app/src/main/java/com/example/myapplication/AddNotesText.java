@@ -34,7 +34,7 @@ public class AddNotesText extends MainActivity {
         TextInputLayout inputView = findViewById(R.id.input);
         String text = inputView.getEditText().getText().toString();
         try {
-            notes.addAll(_getNotesFromText(text));
+            Notes.addNotes(_getNotesFromText(text));
         }catch (InvalidInput e){
             errorMessege("לא סגרת את הסוגריים כמו שצריך.\nהסתכל/י בפורמט למעלה כדי לתקן.",
                     () -> {}, "parenthesis error");// show error if there is'nt a closing parenthesis in the end
@@ -80,7 +80,7 @@ public class AddNotesText extends MainActivity {
             }
             i++;
         }
-        note.setNote(text.substring(0, i));
+        note.setFigure(text.substring(0, i));
         return note;
     }
 
