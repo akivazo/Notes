@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.myapplication.dialogs.PosDialog;
 import com.example.myapplication.dialogs.PosNegDialog;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // disable screen rotation
         setContentView(R.layout.activity_main);
     }
 
@@ -46,8 +49,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(jump);
     }
     public void startGame(View view){
+        Notes.removeEmptyNotes();
         startNextPart();
     }
+
     protected void startNextPart(){
         Intent jump = new Intent(getApplicationContext(), TheGame.class);
         jump.putExtra("part",part++);
@@ -75,6 +80,26 @@ public class MainActivity extends AppCompatActivity {
     private void endGame(){
         initGame();
     }
+    public void sendNotes(View view){
+        Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+        whatsappIntent.setType("text/plain");
+        whatsappIntent.setPackage("com.whatsapp");
+        String text = Notes.notesToText();
+        if (text.equals("")) {
+            Toast.makeText(getApplicationContext(), "אין פתקים לשלוח", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        whatsappIntent.putExtra(Intent.EXTRA_TEXT, text);
+        try {
+
+            startActivity(whatsappIntent);
+
+        } catch (android.content.ActivityNotFoundException ex) {
+
+            Toast.makeText(getApplicationContext(),"Whatsap not installed",Toast.LENGTH_SHORT).show();
+
+        }
+    }
 
     public void instruction(View view){
         Intent jump = new Intent(getApplicationContext(), instruction.class);
@@ -83,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
     // use for children to close the game if the 'built in back button' is pressed.
     protected void closeOnBack(){
-        PosNegDialog dialog = new PosNegDialog("warning", "אם תלחץ על המשך, המשחק יגמר.\nלהמשיך?",
+        PosNegDialog dialog = new PosNegDialog("אזהרה", "אם תלחץ על המשך, המשחק יגמר.\nלהמשיך?",
                 "המשך","ביטול", ()-> {
                                                         Intent exit = new Intent(getApplicationContext(), MainActivity.class);
                                                         initGame();
@@ -92,18 +117,15 @@ public class MainActivity extends AppCompatActivity {
                                                 ,()->{});
         dialog.show(getSupportFragmentManager(),"closeOnBack");
     }
-    protected void errorMessege(String msg, Runnable func, String tag){
-        PosDialog error = new PosDialog("error", msg, "אישור", func);
-        error.show(getSupportFragmentManager(), tag);
+    protected void printMessege(String msg){
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
     // check that the volume is over the minimum volume required
     protected boolean isVolumeOn(int minVal){
         AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
         if (currentVolume < minVal){
-            PosDialog incVol = new PosDialog("מידע","אנא הגבר/י את צלילי המדיה במכשיר שלך",
-                    "אישור", ()-> {});
-            incVol.show(getSupportFragmentManager(), "incVol");
+            printMessege("אנא הגבר/י את צלילי המדיה במכשיר שלך");
             return false;
         }
         return true;

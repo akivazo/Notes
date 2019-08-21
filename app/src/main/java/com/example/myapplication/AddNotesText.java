@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ public class AddNotesText extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // disable screen rotation
         setContentView(R.layout.activity_add_notes_text);
         // display return button in the toolbar (in the top of the screen)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -36,8 +38,7 @@ public class AddNotesText extends MainActivity {
         try {
             Notes.addNotes(_getNotesFromText(text));
         }catch (InvalidInput e){
-            errorMessege("לא סגרת את הסוגריים כמו שצריך.\nהסתכל/י בפורמט למעלה כדי לתקן.",
-                    () -> {}, "parenthesis error");// show error if there is'nt a closing parenthesis in the end
+            printMessege("לא סגרת את הסוגריים כמו שצריך.\nהסתכל/י בפורמט למעלה כדי לתקן.");// show error if there is'nt a closing parenthesis in the end
             return;
         }
         // jump back to the main screen

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,18 +37,23 @@ public class Note extends AppCompatActivity{
     public void setComment(String s){
         comment = s;
     }
-    public TextView show(Activity activity){
-        TextView note = new TextView(activity);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500,500);
+    public TextView show(){
+        TextView note_view = findViewById(R.id.note);
+        note_view.setText(this.getNote());
+        return note_view;
+        /*TextView note = new TextView(activity);
+        FrameLayout.LayoutParams params =
+                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
         params.gravity = Gravity.CENTER;
-        params.setMargins(40,40,40,250);
+        params.setMargins(40,40,40,220);
         String allNote = this.figure + "\n" + this.comment;
         note.setText(allNote);
         //note.setLayoutParams(params);
         note.setTextSize(30);
         note.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         activity.addContentView(note,params);
-        return note;
+        return note;*/
     }
     public String getNote(){
         return this.figure + "\n" + this.comment;

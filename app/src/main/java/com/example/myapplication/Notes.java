@@ -29,6 +29,12 @@ public class Notes extends Application {
         used_notes =  new LinkedList<Note>();
         teamsPoints = new int[]{0,0};
     }
+    public static void removeEmptyNotes(){
+        for ( Note note : unused_notes){
+            if (note.getFigure().equals(""))
+                unused_notes.remove(note);
+        }
+    }
     public static void addPoint(int team){
         teamsPoints[team]++;
     }
@@ -39,9 +45,22 @@ public class Notes extends Application {
         unused_notes.add(note);
     }
     //return a random note
-    public static Note getNote(){
+    public static Note getRandomNote(){
         Random rand = new Random();
-        return unused_notes.get(rand.nextInt(unused_notes.size()));
+        //rand.nextInt(unused_notes.size())
+        return unused_notes.get(0);
+    }
+    protected static String notesToText(){
+        removeEmptyNotes();
+        if (notesIsEmpty())
+            return "";
+        StringBuilder text = new StringBuilder();
+        String temp = "";
+        for ( Note note : unused_notes ){
+            temp = note.getFigure() + note.getComment() + ",";
+            text = text.append(temp);
+        }
+        return text.substring(0, text.length() - 1); // to remove the ',' in the end
     }
     public static void unusedToUsed(Note note){
         unused_notes.remove(note);
@@ -72,10 +91,6 @@ public class Notes extends Application {
     // return true if unused_note is empty
     public static boolean notesIsEmpty(){
         return unused_notes.isEmpty();
-    }
-    public void returnAllToUnused(){
-        unused_notes.addAll(used_notes);
-        used_notes.clear();
     }
 
     private void loadSounds(){

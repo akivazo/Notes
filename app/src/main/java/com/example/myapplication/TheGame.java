@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -37,6 +38,7 @@ public class TheGame extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // disable screen rotation
         setContentView(R.layout.activity_the_game);
         // check what part we are now
         Intent intent = getIntent();
@@ -55,7 +57,7 @@ public class TheGame extends MainActivity {
 
     protected void initNote(){
         note = new Note(); // initialize dummy note
-        note_view = note.show(this);
+        note_view = findViewById(R.id.note);
     }
     protected void showGreet(){
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
@@ -81,7 +83,7 @@ public class TheGame extends MainActivity {
         greet.setVisibility(View.INVISIBLE);
         text_view.setText(teams_text[team]);
     }
-    protected void start(View view){
+    public void start(View view){
         if (!isVolumeOn(4))
             return;
         start.setVisibility(View.INVISIBLE);
@@ -162,7 +164,7 @@ public class TheGame extends MainActivity {
             endThisPart();
             return; // avoiding any thread from running the next lines and show next note while ending this part
         }
-        note = Notes.getNote(); // get a random note
+        note = Notes.getRandomNote(); // get a random note
         note_view.setText(note.getNote());
         //setContentView(note_view);
     }

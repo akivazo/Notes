@@ -47,36 +47,37 @@
         android:id="@+id/add_notes"
         android:layout_width="128dp"
         android:layout_height="71dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="324dp"
         android:background="#465CCF"
         android:onClick="addNotes"
         android:text="הוסף פתקים"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/add_notes_text"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.981" />
+        app:layout_constraintVertical_bias="0.765" />
 
     <Button
         android:id="@+id/add_notes_text"
         android:layout_width="128dp"
         android:layout_height="71dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="324dp"
         android:background="#465CCF"
         android:onClick="addNotesText"
         android:text="@string/erite_notes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.918"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.981" />
+        app:layout_constraintVertical_bias="0.765" />
 
     <Button
         android:id="@+id/button4"
@@ -94,5 +95,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_notes"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/sendNotes"
+        android:layout_width="123dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#4CAF50"
+        android:onClick="sendNotes"
+        android:text="שלח פתקים דרך וואטצאפ"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.596" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
